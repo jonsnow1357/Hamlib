@@ -294,7 +294,6 @@ unsigned long long HAMLIB_API from_bcd_be(const unsigned char bcd_data[],
 size_t HAMLIB_API to_hex(size_t source_length, const unsigned char *source_data,
                          size_t dest_length, char *dest_data)
 {
-    size_t i;
     size_t length = source_length;
     const unsigned char *source = source_data;
     char *dest = dest_data;
@@ -309,7 +308,7 @@ size_t HAMLIB_API to_hex(size_t source_length, const unsigned char *source_data,
         length = dest_length / 2 - 1;
     }
 
-    for (i = 0; i < length; i++)
+    for (size_t i = 0; i < length; i++)
     {
         SNPRINTF(dest, dest_length - 2 * i, "%02X", source[0]);
         source++;
@@ -2978,7 +2977,6 @@ uint32_t CRC32_function(const uint8_t *buf, uint32_t len)
 {
 
     uint32_t crc;
-    uint8_t i;
 
     crc = 0xFFFFFFFF;
 
@@ -2987,7 +2985,7 @@ uint32_t CRC32_function(const uint8_t *buf, uint32_t len)
         uint32_t val;
         val = (crc^*buf++) & 0xFF;
 
-        for (i = 0; i < 8; i++)
+        for (uint8_t i = 0; i < 8; i++)
         {
             val = val & 1 ? (val >> 1) ^ 0xEDB88320 : val >> 1;
         }
