@@ -810,10 +810,10 @@ int newcat_open(RIG *rig)
               __func__, handshake[rig->caps->serial_handshake]);
 
     /* Ensure rig is powered on */
-    if (priv->poweron == 0 && rig_s->auto_power_on)
+    if (!priv->poweron && rig_s->auto_power_on)
     {
         rig_set_powerstat(rig, 1);
-        priv->poweron = 1;
+        priv->poweron = true;
     }
 
     priv->question_mark_response_means_rejected = 0;
@@ -949,10 +949,10 @@ int newcat_close(RIG *rig)
                                                    supported */
     }
 
-    if (priv->poweron != 0 && rig_s->auto_power_off && rig_s->comm_state)
+    if (priv->poweron && rig_s->auto_power_off && rig_s->comm_state)
     {
         rig_set_powerstat(rig, 0);
-        priv->poweron = 0;
+        priv->poweron = false;
     }
 
 #if 0 // this apparently does not work -- we can't query EX103
@@ -3697,7 +3697,7 @@ int newcat_set_powerstat(RIG *rig, powerstat_t status)
     case RIG_POWER_OFF:
     case RIG_POWER_STANDBY:
         retval = write_block(rp, (unsigned char *) "PS0;", 4);
-        priv->poweron = 0;
+        priv->poweron = false;
         RETURNFUNC(retval);
 
     default:
@@ -3721,7 +3721,7 @@ int newcat_set_powerstat(RIG *rig, powerstat_t status)
             if (retval == RIG_OK)
             {
                 rp->retry = retry_save;
-                priv->poweron = 1;
+                priv->poweron = true;
                 RETURNFUNC(retval);
             }
 
@@ -3801,12 +3801,12 @@ int newcat_get_powerstat(RIG *rig, powerstat_t *status)
         {
         case '1':
             *status = RIG_POWER_ON;
-            priv->poweron = 1;
+            priv->poweron = true;
             RETURNFUNC(RIG_OK);
 
         case '0':
             *status = RIG_POWER_OFF;
-            priv->poweron = 0;
+            priv->poweron = false;
             RETURNFUNC(RIG_OK);
 
         default:
