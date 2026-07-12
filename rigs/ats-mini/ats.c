@@ -27,7 +27,7 @@
 #include "register.h"
 #include "serial.h"
 
-#include "mini.h"
+#include "ats.h"
 
 static int p_ats_write(RIG *rig, const unsigned char *cmd) {
     int res_uart = write_block(RIGPORT(rig), cmd, strlen((const char *)cmd));
@@ -528,7 +528,7 @@ struct rig_caps ats_mini_caps =
     .hamlib_check_rig_caps = HAMLIB_CHECK_RIG_CAPS,
 };
 
-DECLARE_INITRIG_BACKEND(mini) {
+DECLARE_INITRIG_BACKEND(atsmini) {
     rig_debug(RIG_DEBUG_VERBOSE, "%s: backend start\n", __func__);
 
     rig_register(&ats_mini_caps);

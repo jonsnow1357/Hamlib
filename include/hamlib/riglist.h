@@ -1159,19 +1159,19 @@
 ///@}
 
 /*
- * ATS Mini
+ * ATS
  */
-#define RIG_MINI 43
+#define RIG_ATS_MINI 44
 /** Used in register.c for the `be_name`. */
-#define RIG_BACKEND_MINI "mini"
+#define RIG_BACKEND_ATS_MINI "atsmini"
 
 /**
  * \name MINI
  * ATS Mini models.
  */
 ///@{
-/// Model of the `RIG_MINI` backend family.
-#define RIG_MODEL_ATS_MINI RIG_MAKE_MODEL(RIG_MINI, 1)
+/// Model of the `RIG_ATS` backend family.
+#define RIG_MODEL_ATS_MINI RIG_MAKE_MODEL(RIG_ATS_MINI, 1)
 ///@}
 
 /** Convenience type definition for rig model. */

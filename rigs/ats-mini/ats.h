@@ -16,8 +16,8 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _MINI_H
-#define _MINI_H 1
+#ifndef _ATS_H
+#define _ATS_H 1
 
 #include "hamlib/rig.h"
 
@@ -106,4 +106,4 @@ static const char * const mini_band_ids[] = {
     [MINI_BAND_CB] = "CB",
 };
 
-#endif /* _MINI_H */
+#endif /* _ATS_H */
